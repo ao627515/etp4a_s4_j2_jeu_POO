@@ -33,6 +33,10 @@ class Player # rubocop:disable Style/Documentation
     damage
   end
 
+  def death?
+    @life_points.zero?
+  end
+
   private
 
   def compute_damage
