@@ -18,7 +18,7 @@ jose.show_state
 
 puts "Passons à la phase d'attaque :"
 
-while jose.life_points.positive? || josiane.life_points.positive?
+while jose.alive? || josiane.alive?
   josiane.attacks(jose)
   break if jose.life_points.zero?
 
