@@ -26,6 +26,27 @@ class HumanPlayer < Player # rubocop:disable Style/Documentation
     end
   end
 
+  def search_health_pack # rubocop:disable Metrics/MethodLength
+    rand = rand(0..5)
+    health_pack = 0
+    prefix = ''
+    if rand == 1
+      puts 'Tu n\'as rien trouvé...'
+    else
+      if rand >= 2 && rand <= 5
+        health_pack = 50
+        prefix = 'Bravo'
+      elsif rand == 6
+        health_pack = 80
+        prefix = 'Waow'
+      end
+      puts "#{prefix}, tu as trouvé un pack de +#{health_pack} points de vie !"
+    end
+
+    
+    life_points_integrity(100)
+  end
+
   private
 
   def compute_damage

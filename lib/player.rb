@@ -46,4 +46,10 @@ class Player # rubocop:disable Style/Documentation
   def print_is_death_by(player)
     puts "#{@name} a ete tuer par #{player.name}" if @life_points <= 0
   end
+
+  def life_points_integrity(max = 10)
+    min = 0
+    @life_points = max if @life_points > max
+    @life_points = min if @life_points < min
+  end
 end
