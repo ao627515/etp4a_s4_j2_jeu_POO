@@ -1,165 +1,91 @@
-# Jeu POO
+# Projet Jeu de Combat en Ruby
 
-## Introduction
+## Description
 
-Bienvenue sur le projet **"ILS VEULENT TOUS MA POO"** ! Ce projet est un jeu de combat interactif en Ruby où vous incarnerez un joueur combattant contre deux ennemis, José et Josiane. Le projet a été développé de manière progressive à travers trois versions majeures : 1.0, 2.0, et 3.0. Chaque version a été développée dans une branche dédiée, et la branche principale `main` contient la version la plus récente (3.0).
+Ce projet est un jeu de combat en Ruby où le joueur affronte des adversaires contrôlés par l'ordinateur. Le jeu est développé de manière progressive avec plusieurs versions, chacune apportant de nouvelles fonctionnalités. Chaque version du projet est disponible sur une branche distincte du dépôt Git.
 
-## Table des Matières
+## Branches du Projet
 
-1. [Mise en place du projet](#mise-en-place-du-projet)
-2. [Version 1.0 : Combat entre deux joueurs](#version-10--combat-entre-deux-joueurs)
-3. [Version 2.0 : Nouveau type de joueur et fonctionnalités avancées](#version-20--nouveau-type-de-joueur-et-fonctionnalités-avancées)
-4. [Version 3.0 : Jeu interactif complet](#version-30--jeu-interactif-complet)
-5. [Utilisation du jeu](#utilisation-du-jeu)
-6. [Contribuer](#contribuer)
+- **main (version 3.0)** : Contient la dernière version du projet, intégrant toutes les fonctionnalités.
+- **version-1.0** : La version initiale où le joueur combat un adversaire.
+- **version-2.0** : Ajoute un nouveau type de joueur (HumanPlayer) avec des compétences spécifiques.
 
-## Mise en place du projet
+## Installation
 
-Pour commencer, préparez votre environnement de travail :
+1. Clonez le dépôt sur votre machine locale :
+   ```sh
+   git clone https://github.com/votre-utilisateur/jeu_combat_ruby.git
+   ```
+2. Accédez au dossier du projet :
+   ```sh
+   cd jeu_combat_ruby
+   ```
+3. Installez les dépendances :
+   ```sh
+   bundle install
+   ```
 
-1. Clonez le dépôt Git :
-    ```sh
-    git clone <URL_du_dépôt>
-    cd jeu_POO
-    ```
+## Utilisation
 
-2. Installez les dépendances :
-    ```sh
-    bundle install
-    ```
+### Version 1.0
+1. Basculez sur la branche `version-1.0` :
+   ```sh
+   git checkout version-1.0
+   ```
+2. Exécutez le jeu :
+   ```sh
+   ruby app.rb
+   ```
 
-3. Voici l'architecture du projet :
-    ```
-    jeu_POO
-    ├── lib
-    │   ├── player.rb
-    │   └── game.rb
-    ├── app.rb
-    ├── app_2.rb
-    ├── README.md
-    ├── Gemfile
-    ├── Gemfile.lock
-    └── Autres fichiers (.env, .gitignore)
-    ```
+### Version 2.0
+1. Basculez sur la branche `version-2.0` :
+   ```sh
+   git checkout version-2.0
+   ```
+2. Exécutez le jeu :
+   ```sh
+   ruby app_2.rb
+   ```
 
-## Version 1.0 : Combat entre deux joueurs
+### Version 3.0
+1. Basculez sur la branche `main` :
+   ```sh
+   git checkout main
+   ```
+2. Exécutez le jeu :
+   ```sh
+   ruby app_3.rb
+   ```
 
-### Objectif
-Coder un combat entre deux joueurs simples avec des points de vie.
+## Structure du Projet
 
-### Détails
-- Chaque joueur a un nom et 10 points de vie.
-- Ils peuvent attaquer, subir des dégâts, et être tués.
-
-### Exemple de code
-```ruby
-# app.rb
-require 'bundler'
-Bundler.require
-
-require_relative 'lib/player'
-
-player1 = Player.new("Josiane")
-player2 = Player.new("José")
-
-while player1.life_points > 0 && player2.life_points > 0
-  puts "Voici l'état de chaque joueur :"
-  player1.show_state
-  player2.show_state
-
-  puts "Passons à la phase d'attaque :"
-  player1.attacks(player2)
-  break if player2.life_points <= 0
-  player2.attacks(player1)
-end
+```
+jeu_combat_ruby/
+├── lib/
+│   ├── player.rb
+│   ├── game.rb
+├── app.rb
+├── app_2.rb
+├── app_3.rb
+├── README.md
+├── Gemfile
+├── Gemfile.lock
 ```
 
-## Version 2.0 : Nouveau type de joueur et fonctionnalités avancées
+## Fonctionnalités
 
-### Objectif
-Introduire un joueur humain avec des fonctionnalités supplémentaires.
+### Version 1.0
+- Combat entre deux joueurs.
+- Affichage de l'état des joueurs.
+- Système de dégâts et de mort des joueurs.
 
-### Détails
-- Classe `HumanPlayer` avec 100 points de vie et un niveau d'arme.
-- Possibilité de chercher de nouvelles armes et des packs de points de vie.
+### Version 2.0
+- Ajout d'un joueur humain (HumanPlayer) avec plus de points de vie et un niveau d'arme.
+- Recherche d'armes et de packs de vie.
+- Combats interactifs avec des choix d'actions pour le joueur.
 
-### Exemple de code
-```ruby
-# app_2.rb
-require 'bundler'
-Bundler.require
-
-require_relative 'lib/game'
-require_relative 'lib/player'
-
-puts "Bienvenue sur 'ILS VEULENT TOUS MA POO' !"
-puts "Le but du jeu est d'être le dernier survivant !"
-
-print "Quel est ton prénom ? "
-user_name = gets.chomp
-human_player = HumanPlayer.new(user_name)
-
-enemies = [Player.new("Josiane"), Player.new("José")]
-
-while human_player.life_points > 0 && enemies.any? { |enemy| enemy.life_points > 0 }
-  puts "Voici l'état de chaque joueur :"
-  human_player.show_state
-  enemies.each { |enemy| enemy.show_state }
-
-  puts "Quelle action veux-tu effectuer ?"
-  puts "a - chercher une meilleure arme"
-  puts "s - chercher à se soigner"
-  puts "0 - attaquer Josiane"
-  puts "1 - attaquer José"
-  print "> "
-  choice = gets.chomp
-
-  case choice
-  when 'a'
-    human_player.search_weapon
-  when 's'
-    human_player.search_health_pack
-  when '0'
-    human_player.attacks(enemies[0])
-  when '1'
-    human_player.attacks(enemies[1])
-  end
-
-  enemies.each do |enemy|
-    if enemy.life_points > 0
-      enemy.attacks(human_player)
-    end
-  end
-end
-
-puts "La partie est finie"
-if human_player.life_points > 0
-  puts "BRAVO ! TU AS GAGNE !"
-else
-  puts "Loser ! Tu as perdu !"
-end
-```
-
-## Version 3.0 : Jeu interactif complet
-
-### Objectif
-Créer un jeu interactif complet avec une expérience utilisateur fluide.
-
-### Détails
-- Le jeu se déroule au tour par tour avec des choix multiples pour le joueur humain.
-- Les ennemis attaquent automatiquement après chaque tour du joueur humain.
-- Ajout de nouvelles fonctionnalités et amélioration de l'expérience utilisateur.
-
-## Utilisation du jeu
-
-Pour lancer le jeu, exécutez le fichier `app.rb` pour la version 1.0 ou `app_2.rb` pour la version 2.0 :
-
-```sh
-ruby app.rb    # Version 1.0
-ruby app_2.rb  # Version 2.0
-```
-
-Suivez les instructions à l'écran pour jouer et interagir avec le jeu.
+### Version 3.0
+- Améliorations et nouvelles fonctionnalités avancées (détails dans la branche `main`).
 
 ## Contribuer
 
