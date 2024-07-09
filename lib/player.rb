@@ -1,4 +1,4 @@
-class Player
+class Player # rubocop:disable Style/Documentation
   # accesseur
   attr_accessor :name, :life_points
 
