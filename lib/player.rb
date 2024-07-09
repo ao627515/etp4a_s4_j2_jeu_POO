@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class Player # rubocop:disable Style/Documentation
-  # accesseur
   attr_accessor :name, :life_points
 
   def initialize(name)
     @name = name
-    @life_points = 10
+    @life_points_max = 10
+    @life_points = @life_points_max
   end
 
   def show_state
@@ -14,15 +14,9 @@ class Player # rubocop:disable Style/Documentation
   end
 
   def gets_damage(damage)
-    @life_points -= damage.to_i
-    @life_points.negative? ? 0 : @life_points
-    print_is_death
-  end
-
-  def gets_damage_of(player)
-    @life_points -= player.attacks(self)
-    @life_points.negative? ? 0 : @life_points
-    print_is_death_by(player)
+    @life_points -= damage
+    check_life_points
+    print_death_message if death?
   end
 
   def attacks(player)
@@ -30,7 +24,14 @@ class Player # rubocop:disable Style/Documentation
     damage = compute_damage
     puts "Il lui inflige #{damage} points de dommages"
     player.gets_damage(damage)
-    damage
+  end
+
+  def death?
+    @life_points <= 0
+  end
+
+  def alive?
+    !death?
   end
 
   private
@@ -39,11 +40,12 @@ class Player # rubocop:disable Style/Documentation
     rand(1..6)
   end
 
-  def print_is_death
-    puts "#{@name} a ete tuer" if @life_points <= 0
+  def print_death_message
+    puts "#{@name} a été tué"
   end
 
-  def print_is_death_by(player)
-    puts "#{@name} a ete tuer par #{player.name}" if @life_points <= 0
+  def check_life_points
+    @life_points = @life_points_max if @life_points > @life_points_max
+    @life_points = 0 if death?
   end
 end
