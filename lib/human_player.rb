@@ -7,7 +7,8 @@ class HumanPlayer < Player # rubocop:disable Style/Documentation
 
   def initialize(name)
     super(name)
-    @life_points = 100
+    @life_points_max = 100
+    @life_points = @life_points_max
     @weapon_level = 1
   end
 
@@ -16,35 +17,29 @@ class HumanPlayer < Player # rubocop:disable Style/Documentation
   end
 
   def search_weapon
-    weapon_level = rand(0..6)
-    puts "Tu as trouvé une arme de niveau #{weapon_level}"
-    if weapon_level > @weapon_level
+    new_weapon_level = rand(1..6)
+    puts "Tu as trouvé une arme de niveau #{new_weapon_level}"
+    if new_weapon_level > @weapon_level
       puts 'Bravo ! Tu prends cette arme.'
-      @weapon_level = weapon_level
+      @weapon_level = new_weapon_level
     else
       puts 'Mauvais choix...'
     end
   end
 
   def search_health_pack # rubocop:disable Metrics/MethodLength
-    rand = rand(0..5)
-    health_pack = 0
-    prefix = ''
-    if rand == 1
+    health_pack_chance = rand(1..6)
+    case health_pack_chance
+    when 1
       puts 'Tu n\'as rien trouvé...'
-    else
-      if rand >= 2 && rand <= 5
-        health_pack = 50
-        prefix = 'Bravo'
-      elsif rand == 6
-        health_pack = 80
-        prefix = 'Waow'
-      end
-      puts "#{prefix}, tu as trouvé un pack de +#{health_pack} points de vie !"
+    when 2..5
+      puts 'Bravo, tu as trouvé un pack de +50 points de vie !'
+      @life_points += 50
+    when 6
+      puts 'Waow, tu as trouvé un pack de +80 points de vie !'
+      @life_points += 80
     end
-
-    
-    life_points_integrity(100)
+    check_life_points
   end
 
   private
