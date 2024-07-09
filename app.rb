@@ -8,24 +8,28 @@ require_relative 'lib/game'
 
 require_relative 'lib/player'
 
-josiane = Player.new('Josiane')
-jose = Player.new('José')
+require_relative 'lib/human_player'
 
-puts "Voici l'état de chaque joueur :"
+# josiane = Player.new('Josiane')
+# jose = Player.new('José')
 
-josiane.show_state
-jose.show_state
+# puts "Voici l'état de chaque joueur :"
 
-puts "Passons à la phase d'attaque :"
+# josiane.show_state
+# jose.show_state
 
-while jose.life_points.positive? || josiane.life_points.positive?
-  josiane.attacks(jose)
-  break if jose.life_points.zero?
+# puts "Passons à la phase d'attaque :"
 
-  puts '----------------------'
-  jose.attacks(josiane)
-  puts '----------------------'
-end
+# while jose.life_points.positive? || josiane.life_points.positive?
+#   josiane.attacks(jose)
+#   break if jose.life_points.zero?
 
+#   puts '----------------------'
+#   jose.attacks(josiane)
+#   puts '----------------------'
+# end
 
-# binding.pry
+ph1 = HumanPlayer.new('az')
+
+binding.pry
+

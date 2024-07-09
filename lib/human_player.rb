@@ -15,6 +15,17 @@ class HumanPlayer < Player # rubocop:disable Style/Documentation
     puts "#{@name} a #{@life_points} points de vie et une arme de niveau #{@weapon_level}"
   end
 
+  def search_weapon
+    weapon_level = rand(0..6)
+    puts "Tu as trouvé une arme de niveau #{weapon_level}"
+    if weapon_level > @weapon_level
+      puts 'Bravo ! Tu prends cette arme.'
+      @weapon_level = weapon_level
+    else
+      puts 'Mauvais choix...'
+    end
+  end
+
   private
 
   def compute_damage
